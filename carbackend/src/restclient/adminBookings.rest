@@ -1,0 +1,26 @@
+### get all bookings
+GET http://localhost:3000/admin/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjY5ZGQwNC0wN2JiLTQ1MGMtYjlhNi00MmNmYjNjYWYyYWIiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTExMjg3NjEsImV4cCI6MTc1MTIxNTE2MX0.vVYqti2UNRAF2bblDl7X-8lpYqr7Lc_FB4wWZms4VMg
+
+
+### Gte a booking by id
+GET http://localhost:3000/admin/bookings/e181f032-b4ac-42fb-8325-e1c2944c53c3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjY5ZGQwNC0wN2JiLTQ1MGMtYjlhNi00MmNmYjNjYWYyYWIiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTExMjg3NjEsImV4cCI6MTc1MTIxNTE2MX0.vVYqti2UNRAF2bblDl7X-8lpYqr7Lc_FB4wWZms4VMg
+ 
+
+### update booking status
+PATCH http://localhost:3000/admin/bookings/e181f032-b4ac-42fb-8325-e1c2944c53c3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjY5ZGQwNC0wN2JiLTQ1MGMtYjlhNi00MmNmYjNjYWYyYWIiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTExMjg3NjEsImV4cCI6MTc1MTIxNTE2MX0.vVYqti2UNRAF2bblDl7X-8lpYqr7Lc_FB4wWZms4VMg
+
+{
+  "status": "CONFIRMED"
+}
+
+
+### Soft Delete Booking
+DELETE  http://localhost:3000/admin/bookings/e181f032-b4ac-42fb-8325-e1c2944c53c3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjY5ZGQwNC0wN2JiLTQ1MGMtYjlhNi00MmNmYjNjYWYyYWIiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTExMjg3NjEsImV4cCI6MTc1MTIxNTE2MX0.vVYqti2UNRAF2bblDl7X-8lpYqr7Lc_FB4wWZms4VMg

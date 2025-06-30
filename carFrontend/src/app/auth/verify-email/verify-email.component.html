@@ -1,0 +1,58 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Verify Your Email</h2>
+  
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label class="block mb-1 font-semibold text-gray-700">
+          Enter the 5-digit code sent to
+        </label>
+        <p class="text-blue-600 font-medium mb-2">{{ email }}</p>
+  
+        <input
+          type="text"
+          formControlName="code"
+          placeholder="Enter code"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+        />
+  
+        <div
+          *ngIf="verifyForm.get('code')?.touched && verifyForm.get('code')?.invalid"
+          class="text-red-500 text-sm mt-1"
+        >
+          Code is required and must be 5 digits
+        </div>
+      </div>
+  
+      <button
+        type="submit"
+        [disabled]="authService.loading$ | async"
+        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded disabled:opacity-50"
+      >
+        Verify Email
+      </button>
+    </form>
+  
+    <!-- Resend code -->
+    <p class="text-sm text-center mt-4 text-gray-600">
+        Didn't receive a code?
+        <button
+          type="button"
+          (click)="resendCode()"
+          [disabled]="resendDisabled || (authService.loading$ | async)"
+          class="text-blue-600 hover:underline font-medium"
+        >
+          Resend Code
+        </button>
+      
+        <span *ngIf="resendDisabled" class="text-gray-500 text-xs ml-2">
+          (wait {{ countDown }}s)
+        </span>
+      </p>
+      
+  
+    <!-- Optional loading state -->
+    <div *ngIf="authService.loading$ | async" class="text-center mt-4">
+      <span class="text-gray-500 text-sm">Please wait...</span>
+    </div>
+  </div>
+  

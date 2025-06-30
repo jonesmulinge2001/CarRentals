@@ -1,0 +1,44 @@
+### add a new vehicle
+POST http://localhost:3000/admin/vehicle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjY5ZGQwNC0wN2JiLTQ1MGMtYjlhNi00MmNmYjNjYWYyYWIiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTExMjg3NjEsImV4cCI6MTc1MTIxNTE2MX0.vVYqti2UNRAF2bblDl7X-8lpYqr7Lc_FB4wWZms4VMg
+
+{
+  "name": "Mercedes-Benz C-Class",
+  "title": "Luxury and comfort combined",
+  "description": "Experience premium comfort and cutting-edge features.",
+  "pricePerHour": 3000,
+  "category": "LUXURY",
+  "available": true,
+  "location": "Nakuru",
+  "imageUrl": "https://res.cloudinary.com/your-cloud-name/image/upload/v1719592345/vehicles/mercedes-c-class.jpg"
+}
+
+
+### get all vehicles
+GET http://localhost:3000/admin/vehicle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+
+
+### get a vehicle by id
+GET http://localhost:3000/admin/vehicle/4cbd05db-95ad-414f-b5f9-530a096a62bd
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+
+
+### update a vehicle
+PATCH http://localhost:3000/admin/vehicle/vehicle/4cbd05db-95ad-414f-b5f9-530a096a62bd
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+
+{
+  "pricePerHour": 1000,
+  "location": "Thika"
+}
+
+
+### Soft Delete a Vehicle
+DELETE http://localhost:3000/admin/vehicle/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjY5ZGQwNC0wN2JiLTQ1MGMtYjlhNi00MmNmYjNjYWYyYWIiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTExMjg3NjEsImV4cCI6MTc1MTIxNTE2MX0.vVYqti2UNRAF2bblDl7X-8lpYqr7Lc_FB4wWZms4VMg

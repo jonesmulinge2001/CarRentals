@@ -1,0 +1,75 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Bookings</h2>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-gray-600 flex items-center space-x-2">
+    <span class="h-4 w-4 border-2 border-t-transparent border-gray-400 rounded-full animate-spin"></span>
+    <span>Loading bookings...</span>
+  </div>
+
+  <!-- No Bookings -->
+  <div *ngIf="!loading && bookings.length === 0" class="text-gray-500 italic text-center text-lg">
+    No bookings available.
+  </div>
+
+  <!-- Bookings Grid -->
+  <div
+    *ngIf="!loading && bookings.length > 0"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+  >
+    <div
+      *ngFor="let booking of bookings"
+      class="bg-white border border-gray-200 rounded-lg shadow-sm p-4 hover:shadow-md transition"
+    >
+      <p class="text-sm text-gray-700"><span class="font-semibold">ID:</span> {{ booking.id }}</p>
+      <p class="text-sm text-gray-700"><span class="font-semibold">Status:</span> {{ booking.status }}</p>
+      <p class="text-sm text-gray-700"><span class="font-semibold">Vehicle:</span> {{ booking.vehicle.name }}</p>
+      <p class="text-sm text-gray-700">
+        <span class="font-semibold">Total:</span>
+        <span class="text-green-600">KES {{ booking.totalPrice }}</span>
+      </p>
+      <p class="text-sm text-gray-700"><span class="font-semibold">Start:</span> {{ booking.startdate | date }}</p>
+      <p class="text-sm text-gray-700"><span class="font-semibold">End:</span> {{ booking.enddate | date }}</p>
+
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button
+          *ngIf="booking.status === 'PENDING'"
+          (click)="openConfirmation(confirmModal, booking, 'Approve')"
+          class="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition"
+        >
+          Approve
+        </button>
+        <button
+          *ngIf="booking.status === 'PENDING'"
+          (click)="openConfirmation(confirmModal, booking, 'Reject')"
+          class="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition"
+        >
+          Reject
+        </button>
+        <button
+          (click)="openConfirmation(confirmModal, booking, 'Delete')"
+          class="px-3 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600 transition"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Template -->
+  <ng-template #confirmModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm Action</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to <strong>{{ pendingAction.toLowerCase() }}</strong> this booking?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="modal.dismiss()">Cancel</button>
+      <button type="button" class="btn btn-sm btn-danger" (click)="performAction(modal)">
+        Yes, {{ pendingAction }}
+      </button>
+    </div>
+  </ng-template>
+</div>

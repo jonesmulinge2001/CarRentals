@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Car Rentals</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+        color: white;
+        padding: 40px 30px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 300;
+      }
+      .header .emoji {
+        font-size: 48px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .content {
+        padding: 40px 30px;
+      }
+      .greeting {
+        font-size: 24px;
+        color: #ff758c;
+        margin-bottom: 20px;
+      }
+      .verify-box {
+        margin: 20px 0;
+        background: #fffbe6;
+        padding: 20px;
+        border-left: 4px solid #ffcc00;
+        border-radius: 8px;
+      }
+      .verify-box p.code {
+        font-size: 32px;
+        font-weight: bold;
+        color: #ff758c;
+        margin: 10px 0;
+        text-align: center;
+        letter-spacing: 3px;
+      }
+      .features {
+        background: #fff6f8;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .features h3 {
+        color: #ff758c;
+        margin-top: 0;
+      }
+      .features ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      .features li {
+        margin: 8px 0;
+      }
+      .cta-button {
+        display: block;
+        width: 200px;
+        margin: 30px auto;
+        background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+        color: white;
+        text-decoration: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-align: center;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+      }
+      .cta-button:hover {
+        transform: translateY(-2px);
+      }
+      .help-section {
+        background: #fffbe6;
+        border-left: 4px solid #ffcc00;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 0 8px 8px 0;
+      }
+      .footer {
+        background: #f8f9fa;
+        padding: 30px;
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        border-top: 1px solid #eee;
+      }
+      .social-links {
+        margin: 20px 0;
+      }
+      .social-links a {
+        display: inline-block;
+        margin: 0 10px;
+        color: #ff758c;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <span class="emoji">🚗</span>
+        <h1>Welcome to <%= rentalName %></h1>
+        <p>Your car rental experience starts here!</p>
+      </div>
+
+      <div class="content">
+        <div class="greeting">Hi <%= name %>! 👋</div>
+
+        <p>
+          We're excited to have you join <strong><%= storeName %></strong>!
+          Your account has been created with the email:
+          <strong><%= email %></strong>.
+        </p>
+
+        <!-- Email verification code block -->
+        <div class="verify-box">
+          <h3>🔐 Email Verification Required</h3>
+          <p>Please use the following 5-digit code to verify your email:</p>
+          <p class="code"><%= verifyToken %></p>
+          <p>Enter this code on the website to activate your account.</p>
+        </div>
+
+        <div class="features">
+          <h3>🚙 What you can do now:</h3>
+          <ul>
+            <li>🔐 Securely log in to your account</li>
+            <li>🚘 Browse available vehicles</li>
+            <li>📝 Make bookings quickly and easily</li>
+            <li>💬 Leave reviews and manage rentals</li>
+          </ul>
+        </div>
+
+        <a href="<%= loginUrl %>" class="cta-button">Go to Login</a>
+
+        <div class="help-section">
+          <h3>🆘 Need Help?</h3>
+          <p>
+            Our support team is ready to help with anything — from bookings to
+            technical issues.
+          </p>
+          <p>
+            <strong>Contact us:</strong>
+            <a href="mailto:<%= supportEmail %>"><%= supportEmail %></a>
+          </p>
+        </div>
+
+        <p>
+          Thanks for being part of our community. We’re here to make
+          your rental experience smooth and satisfying.
+        </p>
+
+        <p style="margin-top: 30px">
+          With appreciation,<br />
+          <strong>The <%= storeName %> Team</strong>
+        </p>
+      </div>
+
+      <div class="footer">
+        <div class="social-links">
+          <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+          <a href="#">Twitter</a> |
+          <a href="#">TikTok</a>
+        </div>
+        <p>
+          This email was sent to <%= email %>. If you didn't create an account,
+          please ignore or contact support.
+        </p>
+        <p>&copy; <%= currentYear %> <%= shoppieName %>. All rights reserved.</p>
+        <p>🚗 Making rentals convenient and affordable.</p>
+      </div>
+    </div>
+  </body>
+</html>

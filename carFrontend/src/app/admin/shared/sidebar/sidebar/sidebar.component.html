@@ -1,0 +1,89 @@
+<!-- Mobile Hamburger Button -->
+<div
+  class="md:hidden p-2 shadow sticky top-0 z-50 bg-white dark:bg-gray-900 flex justify-between items-center"
+>
+  <h2 class="text-lg font-bold text-gray-700 dark:text-white">
+    🚗 Admin Panel
+  </h2>
+  <button
+    (click)="toggleSidebar()"
+    class="text-gray-600 dark:text-gray-300 hover:text-blue-600"
+  >
+    <span class="material-icons">menu</span>
+  </button>
+</div>
+
+<!-- Dark Mode Toggle -->
+<div class="px-4 py-2">
+  <button
+    (click)="toggleDarkMode()"
+    class="w-full flex items-center gap-2 px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+  >
+    <span class="material-icons">dark_mode</span>
+    <span>Toggle Dark Mode</span>
+  </button>
+</div>
+
+<!-- Sidebar -->
+<div
+  class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white shadow-md h-screen fixed top-0 left-0 z-40 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0"
+  [ngClass]="{
+    '-translate-x-full': !showSidebar,
+    'translate-x-0': showSidebar
+  }"
+  [class.w-64]="!collapsed"
+  [class.w-20]="collapsed"
+>
+  <!-- Collapse Button -->
+  <div class="p-4">
+    <button
+      (click)="collapsed = !collapsed"
+      class="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition"
+    >
+      <span class="material-icons">
+        {{ collapsed ? "chevron_right" : "chevron_left" }}
+      </span>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <div class="p-4 flex-1 overflow-y-auto">
+    <h2
+      class="text-2xl font-bold text-gray-700 dark:text-white mb-6"
+      [ngClass]="{ hidden: collapsed }"
+    >
+      🚗 Admin Panel
+    </h2>
+
+    <ul class="space-y-4">
+      <li
+        *ngFor="let item of navItems"
+        class="flex items-center gap-3 cursor-pointer rounded-md px-2 py-2 transition-all duration-300"
+        [ngClass]="{
+          'bg-blue-100 dark:bg-blue-900 text-blue-600 font-semibold border-l-4 border-blue-500 animate-pulse':
+            isActiveRoute(item.link),
+          'hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800':
+            !isActiveRoute(item.link)
+        }"
+      >
+        <span
+          class="material-icons"
+          [ngClass]="{ 'animate-bounce': isActiveRoute(item.link) }"
+        >
+          {{ item.icon }}
+        </span>
+        <a *ngIf="!collapsed" [routerLink]="item.link">{{ item.label }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Logout -->
+  <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+    <button
+      class="w-full flex items-center justify-center gap-2 bg-red-100 text-red-600 py-2 rounded-md hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-800 transition"
+    >
+      <span class="material-icons">logout</span>
+      <span *ngIf="!collapsed">Logout</span>
+    </button>
+  </div>
+</div>

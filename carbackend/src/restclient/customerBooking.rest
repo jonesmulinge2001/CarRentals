@@ -1,0 +1,39 @@
+### book a vehicle
+POST http://localhost:3000/customer/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+
+{
+  "vehicleId": "4cbd05db-95ad-414f-b5f9-530a096a62bd",
+  "startdate": "2025-07-01T10:00:00.000Z",
+  "enddate": "2025-07-05T18:00:00.000Z",
+  "status": "PENDING",
+  "totalPrice": 1500
+}
+
+### get all bookings by user
+GET http://localhost:3000/customer/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+ 
+### get a single booking
+GET http://localhost:3000/customer/bookings/78ba08a8-c21f-45cf-831e-fadcd7aa9369
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+ 
+
+### update a booking
+PATCH http://localhost:3000/customer/bookings/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+
+{
+  "enddate": "2025-09-05T18:00:00.000Z"
+}
+
+### delete a booking
+DELETE http://localhost:3000/customer/bookings/:id
+Authorization: BearerContent-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTE1NDIzNSwiZXhwIjoxNzUxMjQwNjM1fQ.RugcnSaxPFCr3MYbiBgdVvDmO1z8OhRwk6wUT4G2dHM
+
+

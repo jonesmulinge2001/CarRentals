@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form-input, .form-textarea, .file-input {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-600 focus:outline-none;
+  }
+  
+  .form-checkbox {
+    @apply h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500;
+  }
+  

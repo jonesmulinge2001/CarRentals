@@ -1,0 +1,14 @@
+<main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-300">
+    <h2 class="text-center text-xl">Analytics</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <app-card title="Total Users" [value]="totalUsers" icon="group"></app-card>
+        <app-card title="Total Vehicles" [value]="totalVehicles" icon="directions_car"></app-card>
+        <app-card title="Booked Vehicles" [value]="totalBookings" icon="event_busy"></app-card>
+        <app-card title="Available Vehicles" [value]="availableVehicles" icon="check_circle"></app-card>
+        <app-card title="Total Bookings" [value]="bookedVehicles" icon="event_available"></app-card>
+        <app-card title="Total Payments" [value]="totalPayments" icon="account_balance_wallet"></app-card>
+        <app-card title="Active Rentals" [value]="activeRentals" icon="local_shipping"></app-card>
+        <app-card title="Revenue" [value]="'Ksh ' + revenue" icon="attach_money"></app-card>        
+    </div>
+  </main>
+  
