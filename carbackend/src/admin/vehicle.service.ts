@@ -1,6 +1,4 @@
 /* eslint-disable prettier/prettier */
- 
-/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClient, Vehicle } from 'generated/prisma';
 import { CreateVehicleDto } from 'src/dto/create-vehicle.dto';
@@ -22,6 +20,9 @@ export class VehicleService {
         ...dto,
         available: dto.available,
         pricePerHour: Number(dto.pricePerHour),
+        fuelCapacity: Number(dto.fuelCapacity),
+        transmission: dto.transmission,
+        seatingCapacity: dto.seatingCapacity,
         imageUrl: uploadResult.secure_url,
       },
     });
@@ -51,7 +52,10 @@ export class VehicleService {
       data: {
         ...dto,
         pricePerHour: Number(dto.pricePerHour),
-    }
+        fuelCapacity: Number(dto.fuelCapacity),
+        transmission: dto.transmission,
+        seatingCapacity: dto.seatingCapacity,
+      },
     });
   }
 

@@ -11,6 +11,7 @@ export class UserService {
   // get all users (EXCLUDE password & tokens)
   async getAllUsers(): Promise<SafeUser[]> {
     return this.prisma.user.findMany({
+      where:{isDeleted: false},
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -30,7 +31,9 @@ export class UserService {
   // get a user by id (EXCLUDE password & tokens)
   async getUserById(id: string): Promise<SafeUser> {
     const user = await this.prisma.user.findUnique({
-      where: { id },
+      where: { id,
+        isDeleted: false
+       },
       select: {
         id: true,
         name: true,
@@ -76,8 +79,19 @@ export class UserService {
 
   // delete a user
   async deleteUser(id: string): Promise<void> {
-    await this.prisma.user.delete({
-      where: { id },
+    const user = await this.prisma.user.findUnique({
+      where: {id},
+    });
+    if(!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    await this.prisma.user.update({
+      where: {id},
+      data: {
+        isDeleted: true,
+        deletedAt: new Date(),
+      },
     });
   }
 }

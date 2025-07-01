@@ -68,8 +68,8 @@ export class BookingService {
     }
   
     if (
-      dto.status === BookingStatus.CANCELLED ||
-      dto.status === BookingStatus.REJECTED
+      dto.status === BookingStatus.CANCELED ||
+      dto.status === BookingStatus.CONFIRMED
     ) {
       await this.prisma.vehicle.update({
         where: { id: updatedBooking.vehicleId },

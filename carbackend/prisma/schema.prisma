@@ -15,89 +15,106 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  phone     String  @unique
-  role      Role     @default(CUSTOMER)
-  isVerified Boolean @default(false)
-  resetToken          String?
-  resetTokenExpiresAt DateTime?
-  verifyToken String
+  id                   String       @id @default(uuid())
+  name                 String
+  email                String       @unique
+  password             String
+  phone                String       @unique
+  role                 Role         @default(CUSTOMER)
+  isVerified           Boolean      @default(false)
+  resetToken           String?
+  resetTokenExpiresAt  DateTime?
+  verifyToken          String
   verifyTokenExpiresAt DateTime?
-  rentals   Booking[]
-  reviews   Review[]
+  rentals              Booking[]
+  reviews              Review[]
+  profile              UserProfile?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  isDeleted            Boolean      @default(false)
+  deletedAt            DateTime?
+}
+
+model UserProfile {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  bio       String?
+    address         String?
+  avatarUrl String?
+  location  String?
+  imageUrl  String?
+  user      User?    @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  isDeleted Boolean @default(false)
-  deletedAt DateTime?
 }
 
 model Vehicle {
-  id          String     @id @default(uuid())
-  name        String
-  title       String
-  description String
+  id           String    @id @default(uuid())
+  name         String
+  title        String
+  description  String
   pricePerHour Float
-  category    Category
-  available   Boolean    @default(true)
-  location    String
-  imageUrl    String
-  features    Feature[]  @relation("VehicleFeatures")
-  review      Review[]
-  bookings    Booking[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  isDeleted   Boolean @default(false)
-  deletedAt   DateTime?
+  category     Category
+  available    Boolean   @default(true)
+  fuelCapacity   Float  @default(0)
+  transmission    String @default("Manual")
+  seatingCapacity Int @default(4)
+  location     String
+  imageUrl     String
+  features     Feature[] @relation("VehicleFeatures")
+  review       Review[]
+  bookings     Booking[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  isDeleted    Boolean   @default(false)
+  deletedAt    DateTime?
 }
 
 model Booking {
-  id          String     @id @default(uuid())
-  userId      String
-  vehicleId   String
-  startdate   DateTime
-  enddate     DateTime
-  status      BookingStatus @default(PENDING)
-  totalPrice  Float
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id         String        @id @default(uuid())
+  userId     String
+  vehicleId  String
+  startdate  DateTime
+  enddate    DateTime
+  status     BookingStatus @default(PENDING)
+  totalPrice Float
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
 
-  user        User       @relation(fields: [userId], references: [id])
-  vehicle     Vehicle    @relation(fields: [vehicleId], references: [id])
-  payment     Payment?
-  isDeleted   Boolean @default(false)
-  deletedAt   DateTime?
+  user      User      @relation(fields: [userId], references: [id])
+  vehicle   Vehicle   @relation(fields: [vehicleId], references: [id])
+  payment   Payment?
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
 }
 
 model Payment {
-  id          String     @id @default(uuid())
-  bookingId   String     @unique
-  amount      Float
-  method      PaymentMethod
-  status      PaymentStatus @default(PENDING)
-  createdAt   DateTime   @default(now())
+  id        String        @id @default(uuid())
+  bookingId String        @unique
+  amount    Float
+  method    PaymentMethod
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
 
-  booking     Booking    @relation(fields: [bookingId], references: [id])
+  booking Booking @relation(fields: [bookingId], references: [id])
 }
 
 model Review {
-  id          String     @id @default(uuid())
-  userId      String
-  vehicleId   String
-  rating      Float
-  comment     String
-  createdAt   DateTime   @default(now())
+  id        String   @id @default(uuid())
+  userId    String
+  vehicleId String
+  rating    Float
+  comment   String
+  createdAt DateTime @default(now())
 
-  user        User       @relation(fields: [userId], references: [id])
-  vehicle     Vehicle    @relation(fields: [vehicleId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
 }
 
 model Feature {
-  id       String     @id @default(uuid())
-  name     String     @unique
-  vehicles Vehicle[]  @relation("VehicleFeatures")
+  id       String    @id @default(uuid())
+  name     String    @unique
+  vehicles Vehicle[] @relation("VehicleFeatures")
 }
 
 // ENUMS

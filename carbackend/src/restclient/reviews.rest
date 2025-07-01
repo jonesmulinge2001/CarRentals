@@ -1,0 +1,22 @@
+### create a review
+POST http://localhost:3000/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBhYjA1MS1mN2U2LTRlYjgtYWE0Ny0yODBjODFjNGVhNzIiLCJlbWFpbCI6ImpvbmF0aGFubXdhbmRpQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc1MTMwNTkyMSwiZXhwIjoxNzUxMzkyMzIxfQ.TWnekXcKevScRpKuU0IfYBle2OHURMm-ILl5rTU-aZ8
+
+{
+  "vehicleId": "4cbd05db-95ad-414f-b5f9-530a096a62bd",
+  "rating": 5,
+  "comment": "Smooth ride, clean interior!"
+}
+
+### get all reviews for a specific vehicle
+GET http://localhost:3000/reviews/vehicle/4cbd05db-95ad-414f-b5f9-530a096a62bd
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZmIyMjAwZS00ODU3LTRmNDgtYTk5My1mZjBjMjdkNmI4MjkiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTEzMDYwMzYsImV4cCI6MTc1MTM5MjQzNn0.15GCQAtyT30S6qDxVn_YIclCO_lW9MgXSf8VQHEy2dk
+
+
+### getall reviews
+GET http://localhost:3000/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZmIyMjAwZS00ODU3LTRmNDgtYTk5My1mZjBjMjdkNmI4MjkiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTEzMDYwMzYsImV4cCI6MTc1MTM5MjQzNn0.15GCQAtyT30S6qDxVn_YIclCO_lW9MgXSf8VQHEy2dk
+

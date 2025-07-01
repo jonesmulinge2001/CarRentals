@@ -1,0 +1,23 @@
+### create profile
+POST http://localhost:3000/user-profile/ffb2200e-4857-4f48-a993-ff0c27d6b829
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZmIyMjAwZS00ODU3LTRmNDgtYTk5My1mZjBjMjdkNmI4MjkiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTEzMTk4OTIsImV4cCI6MTc1MTQwNjI5Mn0.v-dvqPWQEcQiRrNWjMnawPR6NUL4JfW-rdEce3p49t8
+
+{    "bio": "I love driving subaru cars",
+    "address": "Chuka university"
+}
+
+### update profile
+PATCH http://localhost:3000/user-profile/ffb2200e-4857-4f48-a993-ff0c27d6b829
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZmIyMjAwZS00ODU3LTRmNDgtYTk5My1mZjBjMjdkNmI4MjkiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTEzMTk4OTIsImV4cCI6MTc1MTQwNjI5Mn0.v-dvqPWQEcQiRrNWjMnawPR6NUL4JfW-rdEce3p49t8
+
+{
+  "bio": "Updated bio - still love Subarus!",
+  "address": "Nairobi"
+}
+
+### get own profile
+GET  http://localhost:3000/user-profile/ffb2200e-4857-4f48-a993-ff0c27d6b829
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZmIyMjAwZS00ODU3LTRmNDgtYTk5My1mZjBjMjdkNmI4MjkiLCJlbWFpbCI6ImpvbmF0aGFubXVsaW5nZW13YW5kaUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NTEzMTk4OTIsImV4cCI6MTc1MTQwNjI5Mn0.v-dvqPWQEcQiRrNWjMnawPR6NUL4JfW-rdEce3p49t8

@@ -13,12 +13,14 @@ export class PermissionService {
       Permission.VIEW_USERS,
       Permission.VIEW_BOOKINGS,
       Permission.UPDATE_BOOKING_STATUS,
+      Permission.VIEW_REVIEWS
     ],
     CUSTOMER: [
       Permission.VIEW_VEHICLES,
       Permission.BOOK_VEHICLE,
       Permission.VIEW_BOOKINGS,
       Permission.CANCEL_BOOKING,
+      Permission.CREATE_REVIEW
     ],
     AGENT: [
       Permission.VIEW_BOOKINGS,

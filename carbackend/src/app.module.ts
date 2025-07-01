@@ -13,10 +13,14 @@ import { CloudinaryModule } from './shared/cloudinary/cloudinary.module';
 import { AdminModule } from './admin/admin.module';
 import { CustomerbookingsModule } from './customerbookings/customerbookings.module';
 import { BookingModule } from './admin/booking/booking.module';
+import { ReviewModule } from './review/review.module';
+import { UserProfileModule } from './user/userProfile.module';
 
 @Module({
   imports: [
     AuthModule, 
+    ReviewModule,
+    UserProfileModule,
     BookingModule,
     BookingModule,
     AdminModule,

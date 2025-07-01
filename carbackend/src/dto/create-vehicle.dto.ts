@@ -28,4 +28,15 @@ export class CreateVehicleDto {
 
   @IsString()
   location: string;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  fuelCapacity: number;  
+
+  @IsString()
+  transmission: string;
+
+  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
+  seatingCapacity: number;
 }
