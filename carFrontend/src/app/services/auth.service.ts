@@ -95,6 +95,7 @@ export class AuthService {
           const {token, user} = res.data;
           localStorage.setItem('token', token);
           localStorage.setItem('role', user.role);
+          localStorage.setItem('userId', user.id)
           this.toastr.success('Login successful', 'Welcome back!');
 
           if(user.role === 'ADMIN'){

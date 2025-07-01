@@ -1,0 +1,33 @@
+<div class="p-4">
+    <h2 class="text-xl font-semibold text-center mb-4">📊 All Customer Reviews</h2>
+  
+    <div *ngIf="loading" class="text-center text-gray-500">Loading reviews...</div>
+  
+    <div *ngIf="!loading && reviews.length === 0" class="text-center text-gray-500">
+      No reviews available.
+    </div>
+  
+    <div *ngIf="!loading && reviews.length > 0" class="overflow-x-auto">
+      <table class="min-w-full border border-gray-300 rounded-lg text-sm">
+        <thead class="bg-gray-100 text-left">
+          <tr>
+            <th class="px-4 py-2 border">Vehicle</th>
+            <th class="px-4 py-2 border">User</th>
+            <th class="px-4 py-2 border">Rating</th>
+            <th class="px-4 py-2 border">Comment</th>
+            <th class="px-4 py-2 border">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let review of reviews" class="hover:bg-gray-50">
+            <td class="px-4 py-2 border">{{ review.vehicle.title }}</td>
+            <td class="px-4 py-2 border">{{ review.user.name }}<br /><span class="text-xs text-gray-500">{{ review.user.email }}</span></td>
+            <td class="px-4 py-2 border text-center">⭐ {{ review.rating }}</td>
+            <td class="px-4 py-2 border">{{ review.comment }}</td>
+            <td class="px-4 py-2 border">{{ review.createdAt | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

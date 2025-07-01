@@ -1,0 +1,83 @@
+<!-- Hero Section -->
+<div class="bg-gradient-to-br from-blue-400 to-blue-700 text-white p-8">
+    <div class="text-center">
+      <h1 class="text-5xl font-bold mb-4">The Best Platform for Car Rental</h1>
+      <p class="mb-6">
+        We open the door for you to explore the world in comfort and style. Being your trusted travel partner.
+      </p>
+  
+      <!-- Search Bar -->
+      <div class="bg-white text-black rounded-full p-4 flex flex-wrap justify-between items-center max-w-4xl mx-auto shadow-lg space-x-4">
+        <input type="text" placeholder="City or Destination" class="px-4 py-2 focus:outline-none rounded-full border w-1/4" />
+        <input type="date" class="px-4 py-2 focus:outline-none rounded-full border w-1/4" />
+        <input type="date" class="px-4 py-2 focus:outline-none rounded-full border w-1/4" />
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-full">🔍 Search</button>
+      </div>
+  
+  
+      <!-- Brands Row -->
+      <!-- <div class="flex justify-center items-center gap-8 grayscale mb-12">
+        <img *ngFor="let brand of brands" [src]="brand" class="h-10" alt="Brand logo" />
+      </div> -->
+    </div>
+  </div>
+  
+  <!-- Popular Cars Section -->
+  <div class="p-8 bg-white">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-3xl font-semibold">Our Popular Cars</h2>
+      <p class="text-gray-600 max-w-lg">
+        Enjoy exclusive deals and the best prices for satisfying travel adventures.
+      </p>
+    </div>
+  
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div *ngFor="let car of cars" class="rounded-xl p-4 shadow-lg hover:shadow-xl transition-transform transform hover:scale-105" [ngClass]="car.bg">
+        <div class="flex justify-between items-center mb-2">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800">{{ car.name }}</h3>
+            <p class="text-xs text-gray-500">{{ car.type }}</p>
+          </div>
+          <button class="text-gray-400 hover:text-red-400">
+            <i class="material-icons text-lg">favorite_border</i>
+          </button>
+        </div>
+        <img [src]="car.image" [alt]="car.name" class="w-full h-40 object-cover rounded mb-2" />
+        <div class="flex justify-between text-xs text-gray-700 mb-2">
+          <span>⛽ {{ car.fuel }}</span>
+          <span>⚙️ {{ car.transmission }}</span>
+          <span>👥 {{ car.seats }} People</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-blue-700">KSh {{ car.price }}.00/hr</span>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-full">Rent Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Gallery Section -->
+<!-- Car Gallery Section -->
+<div class="bg-gray-100 py-12 px-8">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-semibold mb-6 text-gray-800">
+        Explore from Every Angle
+      </h2>
+      <p class="text-gray-600 mb-10">
+        Swipe to see our car in different views and angles.
+      </p>
+  
+      <div class="flex overflow-x-auto space-x-4 scrollbar-hide">
+        <img
+          *ngFor="let img of gallery"
+          [src]="img"
+          alt="Car angle"
+          class="rounded-lg shadow-md flex-shrink-0 w-80 h-48 object-cover"
+        />
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  </div>
+  

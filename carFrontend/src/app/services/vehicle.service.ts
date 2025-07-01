@@ -12,7 +12,6 @@ export class VehicleService {
   getAllVehicles(): Observable<Vehicle[]> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
     return this.http.get<{ data: Vehicle[] }>(this.API, { headers }).pipe(
       map(response => response.data)
     );

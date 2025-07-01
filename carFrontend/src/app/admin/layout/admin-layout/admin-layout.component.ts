@@ -10,9 +10,10 @@ import { SidebarComponent } from '../../shared/sidebar/sidebar/sidebar.component
   template: `
     <div class="flex min-h-screen bg-gray-100">
       <app-sidebar></app-sidebar>
-      <main class="flex-1 p-4">
-        <router-outlet></router-outlet>
-      </main>
+      <main class="flex-1 p-4 overflow-y-auto h-screen">
+  <router-outlet></router-outlet>
+</main>
+
     </div>
   `
 })

@@ -12,7 +12,6 @@ import { AdminLayoutComponent } from './admin/layout/admin-layout/admin-layout.c
 import { AdminBookingsComponent } from './admin/bookings/bookings.component';
 import { DisputesComponent } from './admin/disputes/disputes.component';
 import { PaymentsComponent } from './admin/payments/payments.component';
-import { UsersComponent } from './admin/users/users.component';
 import { VehiclesComponent } from './admin/vehicles/vehicles.component';
 
 // Customer
@@ -23,6 +22,10 @@ import { RentalHistoryComponent } from './customer/dashboard/rentals/rental-hist
 import { CustomerLayoutComponent } from './customer/layout/customer-layout/customer-layout.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { BookingsListComponent } from './customer/dashboard/bookings/booking-list/booking-list.component';
+import { AdminReviewsComponent } from './admin/admin-review/admin-review.component';
+import { AdminUsersComponent } from './admin/users/users.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
   // Public Auth routes
@@ -32,6 +35,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  {path: 'profile', component: UserProfileComponent},
 
   // Admin routes
   {
@@ -43,7 +47,8 @@ export const routes: Routes = [
       { path: 'vehicles', component: VehiclesComponent },
       { path: 'bookings', component: AdminBookingsComponent },
       { path: 'payments', component: PaymentsComponent },
-      { path: 'users', component: UsersComponent },
+      {path: 'users', component: AdminUsersComponent},
+      {path:  'reviews', component: AdminReviewsComponent},
       { path: 'disputes', component: DisputesComponent },
     ],
   },
@@ -53,8 +58,8 @@ export const routes: Routes = [
     path: 'customer',
     component: CustomerLayoutComponent,
     children: [
-      { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-      { path: 'vehicles', component: VehicleListComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
       { 
         path: 'bookings/new/:vehicleId', 
         component: NewBookingComponent,
@@ -63,6 +68,7 @@ export const routes: Routes = [
       { path: 'bookings', component: BookingsListComponent },
       // { path: 'bookings/edit/:id', component: ModifyBookingComponent },
       { path: 'rental-history', component: RentalHistoryComponent },
+      { path: 'vehicles', component: VehicleListComponent },
     ],
   },
 ];

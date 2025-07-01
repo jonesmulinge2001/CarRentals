@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 interface Vehicle {
   id: string;
@@ -15,104 +14,15 @@ interface Vehicle {
   available: boolean;
   location: string;
   imageUrl: string;
+  fuelCapacity?: string;
+  transmission?: string;
+  seatingCapacity?: string;
 }
 
 @Component({
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   selector: 'app-vehicles',
-  standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
-  template: `
-  <div class="p-4 md:p-6 max-w-7xl mx-auto">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-xl font-semibold text-gray-900 dark:text-white">Manage Vehicles</h1>
-      <button (click)="openModal()"
-        class="px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white text-sm rounded-md transition">
-        + Add Vehicle
-      </button>
-    </div>
-
-    <div *ngIf="isLoading" class="text-center py-8 text-gray-500 dark:text-gray-300">Loading vehicles...</div>
-    <div *ngIf="error" class="text-red-500 text-center">{{ error }}</div>
-
-    <div *ngIf="vehicles?.length; else noVehicles">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div *ngFor="let vehicle of vehicles"
-          class="bg-white dark:bg-gray-900 rounded-lg shadow border border-gray-200 dark:border-gray-700 overflow-hidden text-sm">
-          <img [src]="vehicle.imageUrl" alt="{{ vehicle.name }}" class="w-full h-32 object-cover" />
-          <div class="p-3 space-y-1">
-            <h2 class="text-base font-semibold text-gray-800 dark:text-white">{{ vehicle.name }}</h2>
-            <p class="text-xs text-gray-500 dark:text-gray-300">{{ vehicle.title }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400">{{ vehicle.description }}</p>
-            <div class="text-xs text-gray-700 dark:text-gray-300 mt-1 space-y-0.5">
-              <p><strong>Location:</strong> {{ vehicle.location }}</p>
-              <p><strong>Price/Hour:</strong> Ksh {{ vehicle.pricePerHour }}</p>
-              <p><strong>Category:</strong> {{ vehicle.category }}</p>
-              <p><strong>Status:</strong>
-                <span [class.text-green-500]="vehicle.available" [class.text-red-500]="!vehicle.available" class="font-medium">
-                  {{ vehicle.available ? 'Available' : 'Unavailable' }}
-                </span>
-              </p>
-            </div>
-            <div class="flex justify-end gap-2 mt-2">
-              <button (click)="openModal(vehicle)"
-                class="px-2 py-0.5 bg-yellow-400 hover:bg-yellow-500 text-white text-xs rounded">
-                Edit
-              </button>
-              <button (click)="deleteVehicle(vehicle.id)"
-                class="px-2 py-0.5 bg-red-500 hover:bg-red-600 text-white text-xs rounded">
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #noVehicles>
-      <div class="text-center py-4 text-gray-500 dark:text-gray-300 text-sm">No vehicles found.</div>
-    </ng-template>
-  </div>
-
-  <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white dark:bg-gray-800 w-full max-w-md p-5 rounded-lg shadow-md text-sm">
-      <h2 class="text-lg font-bold mb-3 text-gray-900 dark:text-white">
-        {{ editingId ? 'Edit Vehicle' : 'Add New Vehicle' }}
-      </h2>
-      <form [formGroup]="vehicleForm" (ngSubmit)="submitForm()" class="space-y-3">
-        <input formControlName="name" type="text" placeholder="Name"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm" />
-        <input formControlName="title" type="text" placeholder="Title"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm" />
-        <textarea formControlName="description" placeholder="Description"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm"></textarea>
-        <input formControlName="pricePerHour" type="number" placeholder="Price Per Hour"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm" />
-        <input formControlName="category" type="text" placeholder="Category"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm" />
-        <input formControlName="location" type="text" placeholder="Location"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm" />
-        <input type="file" (change)="onImageSelected($event)" accept="image/*"
-          class="w-full px-3 py-1.5 border rounded-md bg-white dark:bg-gray-700 dark:text-white text-sm" />
-        <label class="flex items-center gap-2">
-          <input type="checkbox" formControlName="available" class="form-checkbox text-blue-600" />
-          <span class="text-gray-800 dark:text-white">Available</span>
-        </label>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" (click)="closeModal()"
-            class="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-500">
-            Cancel
-          </button>
-          <button type="submit" [disabled]="vehicleForm.invalid || isSubmitting"
-            class="px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded">
-            <span *ngIf="isSubmitting"
-              class="animate-spin inline-block mr-1 border-2 border-t-white rounded-full w-3 h-3"></span>
-            {{ editingId ? 'Update' : 'Create' }}
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-  `,
+  templateUrl: './vehicles.component.html',
 })
 export class VehiclesComponent implements OnInit {
   vehicles: Vehicle[] = [];
@@ -120,20 +30,33 @@ export class VehiclesComponent implements OnInit {
   isSubmitting = false;
   error: string | null = null;
   showModal = false;
-  selectedImageFile: File | null = null;
+  showDeleteModal = false;
   vehicleForm!: FormGroup;
+  selectedImageFile: File | null = null;
   editingId: string | null = null;
+  vehicleToDelete: Vehicle | null = null;
+  searchTerm = '';
+
+  constructor(private http: HttpClient, private fb: FormBuilder, private toastr: ToastrService) {}
 
   private get token(): string {
     const storedToken = localStorage.getItem('token');
     return storedToken ? `Bearer ${storedToken}` : '';
   }
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private toastr: ToastrService) {}
-
   ngOnInit(): void {
     this.initForm();
     this.fetchVehicles();
+  }
+
+  get filteredVehicles(): Vehicle[] {
+    const term = this.searchTerm.toLowerCase();
+    return this.vehicles.filter(vehicle =>
+      vehicle.name.toLowerCase().includes(term) ||
+      vehicle.title.toLowerCase().includes(term) ||
+      vehicle.category.toLowerCase().includes(term) ||
+      vehicle.location.toLowerCase().includes(term)
+    );
   }
 
   initForm(): void {
@@ -144,6 +67,9 @@ export class VehiclesComponent implements OnInit {
       pricePerHour: [null, [Validators.required, Validators.min(0)]],
       category: ['', Validators.required],
       location: ['', Validators.required],
+      fuelCapacity: [''],
+      transmission: [''],
+      seatingCapacity: [''],
       available: [true]
     });
   }
@@ -173,6 +99,9 @@ export class VehiclesComponent implements OnInit {
       pricePerHour: vehicle?.pricePerHour ?? '',
       category: vehicle?.category ?? '',
       location: vehicle?.location ?? '',
+      fuelCapacity: vehicle?.fuelCapacity ?? '',
+      transmission: vehicle?.transmission ?? '',
+      seatingCapacity: vehicle?.seatingCapacity ?? '',
       available: vehicle?.available ?? true
     });
   }
@@ -196,16 +125,29 @@ export class VehiclesComponent implements OnInit {
     this.isSubmitting = true;
     const headers = new HttpHeaders().set('Authorization', this.token);
 
-    if (this.editingId) {
-      const patchHeaders = new HttpHeaders({
-        Authorization: this.token,
-        'Content-Type': 'application/json'
-      });
+    const formValue = { ...this.vehicleForm.value };
 
+    // ✅ Handle optional numeric fields carefully
+    formValue.pricePerHour = parseFloat(formValue.pricePerHour);
+
+    if (formValue.fuelCapacity) {
+      formValue.fuelCapacity = parseFloat(formValue.fuelCapacity);
+    } else {
+      delete formValue.fuelCapacity;
+    }
+
+    if (formValue.seatingCapacity) {
+      formValue.seatingCapacity = parseInt(formValue.seatingCapacity, 10);
+    } else {
+      delete formValue.seatingCapacity;
+    }
+
+    if (this.editingId) {
+      // ✅ PATCH request for update
       this.http.patch<{ data: Vehicle }>(
         `http://localhost:3000/admin/vehicle/${this.editingId}`,
-        this.vehicleForm.value,
-        { headers: patchHeaders }
+        formValue,
+        { headers: headers.set('Content-Type', 'application/json') }
       ).subscribe({
         next: (res) => {
           const index = this.vehicles.findIndex(v => v.id === res.data.id);
@@ -217,9 +159,10 @@ export class VehiclesComponent implements OnInit {
         complete: () => (this.isSubmitting = false)
       });
     } else {
+      // ✅ POST request for create
       const formData = new FormData();
-      Object.entries(this.vehicleForm.value).forEach(([key, val]) => {
-        formData.append(key, val as string);
+      Object.entries(formValue).forEach(([key, val]) => {
+        formData.append(key, String(val));
       });
       if (this.selectedImageFile) {
         formData.append('image', this.selectedImageFile);
@@ -237,13 +180,25 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
-  deleteVehicle(id: string): void {
-    if (!confirm('Are you sure you want to delete this vehicle?')) return;
+  confirmDelete(vehicle: Vehicle): void {
+    this.vehicleToDelete = vehicle;
+    this.showDeleteModal = true;
+  }
+
+  cancelDelete(): void {
+    this.showDeleteModal = false;
+    this.vehicleToDelete = null;
+  }
+
+  deleteVehicle(): void {
+    if (!this.vehicleToDelete) return;
+    const id = this.vehicleToDelete.id;
     const headers = new HttpHeaders().set('Authorization', this.token);
     this.http.delete(`http://localhost:3000/admin/vehicle/${id}`, { headers }).subscribe({
       next: () => {
         this.vehicles = this.vehicles.filter(v => v.id !== id);
         this.toastr.success('Vehicle deleted successfully');
+        this.cancelDelete();
       },
       error: () => this.toastr.error('Failed to delete vehicle')
     });

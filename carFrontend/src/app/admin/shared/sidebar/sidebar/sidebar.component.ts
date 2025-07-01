@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
     { label: 'Bookings', link: '/admin/bookings', icon: 'event_available' },
     { label: 'Payments', link: '/admin/payments', icon: 'account_balance_wallet' },
     { label: 'Users', link: '/admin/users', icon: 'group' },
+    { label: 'Customer Reviews', link: '/admin/reviews', icon: 'star_rate' },
     { label: 'Disputes', link: '/admin/disputes', icon: 'report_problem' }
   ];
 
@@ -50,5 +51,10 @@ export class SidebarComponent implements OnInit {
 
   isActiveRoute(route: string): boolean {
     return this.router.url.includes(route);
+  }
+
+  logout(): void{
+    localStorage.removeItem('token');
+      this.router.navigate(['/login']);
   }
 }
