@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +19,8 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     const email = this.forgotForm.value.email;
-
+    
     this.authService.handleForgotpassword(email);
     localStorage.setItem('resetEmail', email);
     this.router.navigate(['/reset-password']);

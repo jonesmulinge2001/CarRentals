@@ -23,7 +23,7 @@ export class AppComponent {
         const currentPath = event.urlAfterRedirects.split('?')[0];
         console.log('Current path:', currentPath);
 
-        const hiddenRoutes = ['/login', '/register', '/verify-email'];
+        const hiddenRoutes = ['/login', '/register', '/verify-email', '/reset-password', '/forgot-password'];
 
         this.showNavbar = !(
           currentPath.startsWith('/admin') ||

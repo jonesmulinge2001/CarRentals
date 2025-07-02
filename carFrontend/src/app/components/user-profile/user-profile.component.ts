@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
     const storedId = localStorage.getItem('userId');
     const storedToken = localStorage.getItem('token');
 
-    if (!storedId || !storedToken) {
+    if (!storedId || !storedToken ) {
       this.toastr.error('User not authenticated');
       // this.router.navigate(['/login']);
       return;
@@ -38,10 +38,11 @@ export class UserProfileComponent implements OnInit {
 
     this.userId = storedId;
     this.token = storedToken;
+    this
 
     this.profileForm = this.fb.group({
-      bio: ['', Validators.required],
-      address: ['', Validators.required],
+      bio: ['', [Validators.required, Validators.minLength(2)]],
+      address: ['', [Validators.required, Validators.minLength(2)]],
     });
 
     this.loadProfile();

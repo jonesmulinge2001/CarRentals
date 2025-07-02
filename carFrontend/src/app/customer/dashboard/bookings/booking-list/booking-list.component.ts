@@ -181,7 +181,7 @@ export class BookingsListComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const payload = {
       vehicleId: this.selectedBooking.vehicle.id,
-      rating: this.reviewForm.value.rating,
+      rating: Number(this.reviewForm.value.rating),
       comment: this.reviewForm.value.comment,
     };
 

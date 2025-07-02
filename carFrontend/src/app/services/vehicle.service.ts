@@ -5,6 +5,7 @@ import { Vehicle } from '../customer/intrefaces/vehicle.model';
 
 @Injectable({ providedIn: 'root' })
 export class VehicleService {
+  
   private API = 'http://localhost:3000/admin/vehicle';
 
   constructor(private http: HttpClient) {}

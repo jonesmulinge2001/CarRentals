@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClient } from 'generated/prisma';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
@@ -35,8 +35,7 @@ export class AuthService {
 
     // set expiry time for the code
     const expiresAt = new Date();
-    expiresAt.setMinutes(expiresAt.getMinutes() + 1);
-
+    expiresAt.setSeconds(expiresAt.getSeconds() + 60);
     const user = await this.prisma.user.create({
       data: {
         email: data.email,
@@ -121,9 +120,9 @@ export class AuthService {
 
   async login(data: LoginUserDto) {
     const user = await this.prisma.user.findUnique({
-      where: { email: data.email },
+      where: { email: data.email, isDeleted: false },
     });
-    if (!user) throw new Error('User not found');
+    if (!user) throw new NotFoundException('User not found');
 
     if (!user.isVerified) {
       throw new Error('Please verify your email before logging in.');
@@ -150,15 +149,15 @@ export class AuthService {
 
   // forgot password
   async forgotPassword(email: string) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) throw new Error(`User with email (${email}) not found`);
+    const user = await this.prisma.user.findUnique({ where: { email, isVerified: true } });
+    if (!user) throw new NotFoundException(`User with email (${email}) not found`);
 
     const resetCode = Math.floor(10000 + Math.random() * 90000).toString();
     const expiresAt = new Date();
     expiresAt.setSeconds(expiresAt.getSeconds() + 60);
 
     await this.prisma.user.update({
-      where: { email },
+      where: { email},
       data: {
         resetToken: resetCode,
         resetTokenExpiresAt: expiresAt,
@@ -168,7 +167,7 @@ export class AuthService {
     await this.mailerService.sendEmail({
       to: email,
       subject: '🗝 Reset Your Password - Car Rentals',
-      html: `<p>Your reset code is:</p><h2>${resetCode}</h2><p>It expires in 60s.</p>`,
+      html: `<p>Your reset code is:</p><h2>${resetCode}</h2><p>This code expires in 60s.</p>`,
     });
 
     return { message: 'Reset code sent to your email.' };
@@ -195,7 +194,7 @@ export class AuthService {
       await this.mailerService.sendEmail({
         to: email,
         subject: 'Reset Your Password - Car Rentals',
-        html: `<p>Your new password reset code is:</p><h2>${resetCode}</h2><p>It expires in 60s.</p>`,
+        html: `<p>Your new password reset code is:</p><h2>${resetCode}</h2><p>This code expires in 60s.</p>`,
       });
 
       return { message: 'Reset code sent to your email.' };
@@ -205,7 +204,7 @@ export class AuthService {
   // reset password
   async resetPassword(email: string, code: string, newPassword: string) {
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) return { message: 'Reset code sent to your email.' };
+    if (!user) return { message: 'Check reset code sent to your email.' };
 
     if (
       !user.resetToken ||
@@ -216,7 +215,7 @@ export class AuthService {
     }
 
     if (user.resetToken !== code) {
-      throw new Error('Invalid reset code');
+      throw new NotFoundException('Invalid reset code');
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);

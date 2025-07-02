@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+ 
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
+ 
 // src/user-profile/user-profile.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 

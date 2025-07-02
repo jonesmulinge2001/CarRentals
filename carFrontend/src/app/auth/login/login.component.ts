@@ -13,6 +13,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  showPassword = false;
   
   constructor(
     private fb: FormBuilder,
@@ -34,6 +35,15 @@ export class LoginComponent implements OnInit {
 
       const payLoad = this.loginForm.value;
       this.authService.handleLogin(payLoad);
+    }
+
+    toggleVisibility() {
+      this.showPassword = !this.showPassword;
+    }
+
+    isInvalid(field: string): boolean {
+      const control = this.loginForm.get(field);
+      return !!control?.invalid && control?.touched;
     }
 
 }

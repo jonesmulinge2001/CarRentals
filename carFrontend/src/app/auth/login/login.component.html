@@ -1,74 +1,67 @@
-<div class="max-w-md mx-auto mt-12 bg-white p-6 rounded-xl shadow-md">
-  <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">
-    Login to Your Account
-  </h2>
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <!-- Email -->
-    <div class="mb-4">
-      <label class="block text-sm font-semibold text-gray-600 mb-1"
-        >Email</label
-      >
-      <input
-        type="email"
-        formControlName="email"
-        placeholder="Enter your email"
-        class="w-full border px-3 py-2 rounded border-gray-300 focus:outline-none focus:ring"
-      />
-      <div
-        *ngIf="
-          loginForm.get('email')?.touched && loginForm.get('email')?.invalid
-        "
-        class="text-red-500 text-sm mt-1"
-      >
-        Valid email is required.
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+  <div class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
+    <div class="flex flex-col items-center mb-6">
+      <div class="bg-blue-600 rounded-full w-10 h-10 flex items-center justify-center text-white text-xl font-bold">
+        🔒
       </div>
+      <h2 class="text-2xl font-bold mt-4 text-gray-800">Login to Your Account</h2>
+      <p class="text-sm text-gray-500">Welcome back! Please log in to continue.</p>
     </div>
 
-    <!-- Password -->
-    <div class="mb-6">
-      <label class="block text-sm font-semibold text-gray-600 mb-1"
-        >Password</label
-      >
-      <input
-        type="password"
-        formControlName="password"
-        placeholder="Enter your password"
-        class="w-full border px-3 py-2 rounded border-gray-300 focus:outline-none focus:ring"
-      />
-      <div
-        *ngIf="
-          loginForm.get('password')?.touched &&
-          loginForm.get('password')?.invalid
-        "
-        class="text-red-500 text-sm mt-1"
-      >
-        Password must be at least 6 characters.
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Email Address</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email..."
+          class="w-full px-4 py-2 border rounded-full focus:outline-none"
+          [ngClass]="{ 'border-red-500': isInvalid('email'), 'border-gray-300': !isInvalid('email') }"
+        />
+        <div *ngIf="isInvalid('email')" class="text-red-500 text-sm mt-1">
+          Valid email is required.
+        </div>
       </div>
-    </div>
 
-    <!-- Submit Button -->
-    <button
-      type="submit"
-      [disabled]="authService.loading$ | async"
-      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded disabled:opacity-50"
-    >
-      Login
-    </button>
+      <!-- Password -->
+      <div class="mb-4 relative">
+        <label class="block text-sm font-medium mb-1">Password</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Enter your password..."
+          class="w-full px-4 py-2 border rounded-full focus:outline-none"
+          [ngClass]="{ 'border-red-500': isInvalid('password'), 'border-gray-300': !isInvalid('password') }"
+        />
+        <span
+          class="absolute right-4 top-10 cursor-pointer text-gray-500"
+          (click)="toggleVisibility()"
+        >
+          👁️
+        </span>
+        <div *ngIf="isInvalid('password')" class="text-red-500 text-sm mt-1">
+          Password must be at least 6 characters.
+        </div>
+      </div>
 
-    <!-- Forgot password link -->
-    <p
-      class="text-sm text-center mt-4 text-blue-600 hover:underline cursor-pointer"
-    >
-      <a [routerLink]="['/forgot-password']">Forgot Password?</a>
+      <!-- Submit -->
+      <button
+        type="submit"
+        [disabled]="authService.loading$ | async"
+        class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-full transition disabled:opacity-50"
+      >
+        Login →
+      </button>
+    </form>
+
+    <p class="text-sm text-center mt-4 text-gray-500">
+      <a routerLink="/forgot-password" class="text-green-600 font-semibold hover:underline">Forgot Password?</a>
     </p>
 
-    <!-- Optional: Loading message -->
-    <!-- <p
-      *ngIf="authService.loading$ | async"
-      class="text-center text-gray-500 text-sm mt-3"
-    >
-      Logging in...
-    </p> -->
-  </form>
+    <p class="text-sm text-center mt-2 text-gray-500">
+      Don’t have an account?
+      <a routerLink="/register" class="text-green-600 font-semibold hover:underline">Sign Up</a>
+    </p>
+  </div>
 </div>

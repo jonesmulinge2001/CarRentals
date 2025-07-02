@@ -11,7 +11,6 @@
         <a routerLink="/customer/vehicles" routerLinkActive="font-semibold text-blue-600" class="hover:text-blue-600">Vehicles</a>
         <a routerLink="/customer/bookings" routerLinkActive="font-semibold text-blue-600" class="hover:text-blue-600">My Bookings</a>
         <a routerLink="/contact" routerLinkActive="font-semibold text-blue-600" class="hover:text-blue-600">Contact</a>
-        <a routerLink="/login" routerLinkActive="font-semibold text-blue-600" class="hover:text-blue-600">Login</a>
         <a routerLink="/profile" routerLinkActive="font-semibold text-blue-600" class="hover:text-blue-600">Pofile</a>
         <ng-container *ngIf="isLoggedIn; else guestLinks">
           <button (click)="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Logout</button>
